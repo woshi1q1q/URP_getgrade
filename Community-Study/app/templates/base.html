@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>
+  {% block title %}
+  {% endblock %}-Community Study
+  </title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="/static/css/style1.css" title="style" />
+
+
+</head>
+
+<body>
+  <div id="main">
+    <div id="header">
+      <div id="logo">
+        <div id="logo_text">
+          <!-- class="logo_colour", allows you to change the colour of the text -->
+          <h1><a href="/">Study <span class="logo_colour"> Community</span></a></h1>
+          <h2>对所学知识内容的兴趣可能成为学习动机。</h2>
+        </div>
+      </div>
+      <div id="menubar">
+        <ul id="menu">
+          <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+          <li ><a href="/">主页</a></li>
+          <li><a href="/new/">发表</a></li>
+          <li><a href="https://github.com/woshi1q1q/Study-Community" target="_blank">Github</a></li>
+          <li><a href="/about/">关于</a></li>
+
+          {% if current_user.is_authenticated %}
+          <li ><a href="/mypage/"> {{ current_user.username }}</a></li>
+		  <li><a href="/logout/">退出</a></li>
+		  {% else %}
+		  <li><a href="/login/">登录</a></li>
+		  <li><a href="/reg/">注册</a></li>
+
+		  {% endif %}
+        </ul>	 	
+      </div>
+    </div>
+	<div class="inner_copyright">Powered by Study Python Webapp. </div>
+    <div id="site_content">
+      
+      <div class="sidebar">
+        <!-- insert your sidebar items here -->
+        {% for message in get_flashed_messages() %}<br>
+            <p style="text-align:center;color:green">{{ message }}</p>
+            {% endfor %}
+        <h3>最新动态</h3>
+           
+		  {% for post in post_list[0:8] %}
+		  <p style="color:black"><a>{{ post.author }}</a> 于 {{post.create_time}} 发表了文章- <a href='/detail/{{ post.id }}'>{{ post.title }}</a>。<p/><br>
+		  {% endfor %}
+		<h3>友情链接</h3>
+        <ul>
+          <li><a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000" target="_blak">Python学习</a></li>
+          <li><a href="http://www.w3school.com.cn/" target="_blak" >W3School</a></li>
+          <li><a href="https://blog.csdn.net/" target="_blak">CSDN社区</a></li>
+          <li><a href="http://docs.jinkan.org/docs/flask/" target="_blak">Flask中文</a></li>
+        </ul>      
+      </div>
+      
+      <div id="content">
+	  {% block content %}
+	  {% endblock %}
+      </div>
+    </div>
+    <div id="content_footer"></div>
+    <div id="footer">
+      Powered by Study Python Webapp.<br>&copy; All Rights Reserved. Thanks for Templates Home.
+    </div>
+  </div>
+</body>
+</html>

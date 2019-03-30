@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>
+  {% block title %}
+  删除-{{ data.title }}
+  {% endblock %}
+  </title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="/static/style.css" title="style" />
+</head>
+
+<body>
+  <div id="main">
+    <div id="header">
+      <div id="logo">
+        <div id="logo_text">
+          <!-- class="logo_colour", allows you to change the colour of the text -->
+          <h1><a href="/">Study <span class="logo_colour"> Community</span></a></h1>
+          <h2>对所学知识内容的兴趣可能成为学习动机。</h2>
+        </div>
+      </div>
+      <div id="menubar">
+        <ul id="menu">
+          <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+          <li class="selected"><a href="/">主页</a></li>
+          <li><a href="">列表</a></li>
+          <li><a href="">Github</a></li>
+          <li><a href="">关于</a></li>
+		    {% if current_user.is_authenticated %}
+		    <li><a href="#"> Hi,</a></li>
+		    <li><a href="#">退出</a></li>
+		    {% else %}
+		    <li><a href="#">登录</a></li>
+		    <li><a href="#">注册</a></li>
+		    {% endif %}
+        </ul>	 	
+      </div>
+    </div>
+	<div class="inner_copyright">Powered by Study Python Webapp. </div>
+    <div id="site_content">   
+	  {% block content %}
+      <br><br>
+       <h4 style="text-align:center;color:red;">文章一经删除无法恢复，请慎重考虑！<br><br>
+       是否确认删除文章:&emsp;<a href="/detail/{{ data.id }}/">{{ data.title }}</a><h4> 
+      <br><br>
+      <p align="center" color="red">
+      <a href="/delete/{{ data.id }}/">确认删除</a>
+      &emsp;&emsp;
+       <a href="/mypage/">返回</a>
+      </p>
+	  {% endblock %}
+      <div class="sidebar">
+        <!-- insert your sidebar items here -->
+        <h3>最新动态</h3>
+		
+		<h3>友情链接</h3>
+        <ul>
+          <li><a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000" target="_blak">Python学习</a></li>
+          <li><a href="http://www.w3school.com.cn/" target="_blak" >W3School</a></li>
+          <li><a href="https://blog.csdn.net/" target="_blak">CSDN社区</a></li>
+          <li><a href="http://docs.jinkan.org/docs/flask/" target="_blak">Flask中文</a></li>
+        </ul>      
+      </div>
+    </div>
+    <div id="content_footer"></div>
+    <div id="footer">
+      Powered by Study Python Webapp. 
+    </div>
+  </div>
+</body>
+</html>

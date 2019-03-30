@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8" />
+        <title>新建文章</title>
+        <link rel="stylesheet" href="/static/css/editormd.min.css" />
+        <style>
+         .btn-publish {
+         padding: 10px 16px;
+         font-size: 16px;
+         color: #fff;
+         border: none;
+         border-radius: 4px;
+         white-space: nowrap;
+         background-color: #3385ff;
+         }
+         
+         a.tit{
+         font-size:30px;
+         color:#0099FF;
+         text-decoration: none;
+         
+         }
+         .hidden{
+            display:none;
+         }
+         
+         a.dt{
+         text-decoration: none;
+         }
+         dl{
+         width:80px;
+         position:absolute;
+         top:35px;
+         right:-4px;
+         border: 2px solid #EDEDED;
+         z-index:99;
+         background-color:#fff;
+         text-align:center;
+         }
+         dt{
+            height:30px;
+            line-height:30px;
+         }
+         dt:hover{
+            background-color: #3385ff;
+         }
+         dt:hover a{
+            color:#fff;
+         }
+        </style>
+    </head>
+    <body>
+        <div id="layout">
+            <header>
+            <div align="center"><a href='/' class="tit" >Study Community</a></div>
+            </header>
+            <form action="/new/" method="post">
+            <input type="text" placeholder="输入文章标题" name="title" style="width:78%;height:32px;margin-left:70px;" minlength="2" required/>
+            <button class="btn btn-publish">发布文章</button>
+            <div class="main" style="display: inline-block;position:relative">
+            <img src="/static/images/main.jpg" width="70" height="60" align="center"></img>
+            <dl class="main-ul hidden">
+                <dt><a class="dt" href="/mypage/">个人信息 </a></dt>
+                <dt><a class="dt" href="/">返回主页</a></dt>
+                <dt><a class="dt" href="/logout/">退出</a></dt>
+            </dl>
+            </div>
+            <br><br>
+            <div id="test-editormd">                
+                <textarea name="content" style="display:none;"></textarea>
+            </form>
+            </div>
+        </div>        
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/editormd.min.js"></script>
+        <script type="text/javascript">
+            var testEditor;
+            
+            $(function() {    
+                // You can custom @link base url.
+                editormd.urls.atLinkBase = "https://github.com/";
+                
+                testEditor = editormd("test-editormd", {
+                    width     : "90%",
+                    height    : 520,
+                    
+                    toc       : true,
+                    imageUpload:true,
+                    imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    imageUploadURL :"{{ url_for('.upload') }}",
+                    //atLink    : false,    // disable @link
+                    //emailLink : false,    // disable email address auto link
+                    todoList  : true,
+                    path      : '../static/editormd/lib/'
+                    
+
+                });
+            });
+            $(".main").mouseover(function (){  
+            $(".main-ul").removeClass("hidden");
+            }).mouseout(function (){  
+                $(".main-ul").addClass("hidden");
+           });
+        </script>
+    </body>
+</html>
